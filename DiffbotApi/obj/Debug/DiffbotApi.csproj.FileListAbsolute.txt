@@ -1,0 +1,8 @@
+c:\local_apps\DiffbotApi\DiffbotApi\obj\Debug\ResolveAssemblyReference.cache
+c:\local_apps\DiffbotApi\DiffbotApi\bin\Debug\DiffbotApi.dll
+c:\local_apps\DiffbotApi\DiffbotApi\bin\Debug\DiffbotApi.pdb
+c:\local_apps\DiffbotApi\DiffbotApi\obj\Debug\DiffbotApi.dll
+c:\local_apps\DiffbotApi\DiffbotApi\obj\Debug\DiffbotApi.pdb
+c:\local_apps\DiffbotApi\DiffbotApi\bin\Debug\Newtonsoft.Json.dll
+c:\local_apps\DiffbotApi\DiffbotApi\bin\Debug\Newtonsoft.Json.pdb
+c:\local_apps\DiffbotApi\DiffbotApi\bin\Debug\Newtonsoft.Json.xml
