@@ -2,7 +2,6 @@
 
 The [Diffbot](http://diffbot.com) API enables users to scrape structured frontpage summaries and full articles from sites. This library is a .NET wrapper around the API.
 
-# Usage
 
 There are two APIs supported: Frontpage and Article.
 
