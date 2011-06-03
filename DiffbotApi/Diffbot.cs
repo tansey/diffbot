@@ -5,6 +5,7 @@ using System.Text;
 using System.Net;
 using System.Xml.Serialization;
 using System.IO;
+using System.Web;
 namespace DiffbotApi
 {
     public class Diffbot
@@ -43,7 +44,7 @@ namespace DiffbotApi
 
         private string getQueryUrl(string queryType, string url)
         {
-            return DIFFBOT_API_URL + queryType + "?token=" + DeveloperToken + "&url=" + url;
+            return DIFFBOT_API_URL + queryType + "?token=" + DeveloperToken + "&url=" + HttpUtility.UrlEncode(url);
         }
     }
 }
