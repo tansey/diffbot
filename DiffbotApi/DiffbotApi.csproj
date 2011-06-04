@@ -45,13 +45,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Article.cs" />
+    <Compile Include="Comments.cs" />
     <Compile Include="Diffbot.cs" />
     <Compile Include="Frontpage.cs" />
     <Compile Include="FrontpageInfo.cs" />
     <Compile Include="FrontpageItem.cs" />
     <Compile Include="JsonClassHelper.cs" />
     <Compile Include="Media.cs" />
+    <Compile Include="Medium.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Stats.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

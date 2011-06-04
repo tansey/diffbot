@@ -32,19 +32,40 @@ namespace DiffbotApi
 
         }
 
-        public Article Article(string url)
+        public Article Article(string url, bool comments = false, bool keepAds = false, bool stats = false, bool summary = false, bool tags = false)
         {
             using (WebClient wc = new WebClient())
             {
+                List<OptionalParameter> args = new List<OptionalParameter>();
+                if(comments)
+                    args.Add(new OptionalParameter() { Name = "comments", Value = "true" });
+                if (keepAds)
+                    args.Add(new OptionalParameter() { Name = "dontStripAds", Value = "true" });
+                if (stats)
+                    args.Add(new OptionalParameter() { Name = "stats", Value = "true" });
+                if (summary)
+                    args.Add(new OptionalParameter() { Name = "summary", Value = "true" });
+                if (tags)
+                    args.Add(new OptionalParameter() { Name = "tags", Value = "true" });
+                
                 wc.Proxy = null;
-                string jsonString = wc.DownloadString(getQueryUrl(ARTICLE_API_SUFFIX, url));
+                string jsonString = wc.DownloadString(getQueryUrl(ARTICLE_API_SUFFIX, url, args.ToArray()));
                 return new Article(jsonString);
             }
         }
 
-        private string getQueryUrl(string queryType, string url)
+        private string getQueryUrl(string queryType, string url, params OptionalParameter[] args)
         {
-            return DIFFBOT_API_URL + queryType + "?token=" + DeveloperToken + "&url=" + HttpUtility.UrlEncode(url);
+            string result = DIFFBOT_API_URL + queryType + "?token=" + DeveloperToken + "&url=" + HttpUtility.UrlEncode(url);
+            foreach (var arg in args)
+                result += "&" + arg.Name + "=" + HttpUtility.UrlEncode(arg.Value);
+            return result;
+        }
+
+        private class OptionalParameter
+        {
+            public string Name { get; set; }
+            public string Value { get; set; }
         }
     }
 }

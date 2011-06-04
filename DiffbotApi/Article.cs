@@ -4,6 +4,7 @@
 using System;
 using Newtonsoft.Json.Linq;
 using JsonCSharpClassGenerator;
+using DiffbotApi.JsonTypes;
 
 namespace DiffbotApi
 {
@@ -20,6 +21,26 @@ namespace DiffbotApi
         public Article(JObject obj)
         {
             this.__jobject = obj;
+        }
+
+        [System.Diagnostics.DebuggerBrowsable(System.Diagnostics.DebuggerBrowsableState.Never)]
+        private string[] _tags;
+        public string[] Tags
+        {
+            get
+            {
+                if(_tags == null)
+                    _tags = (string[])JsonClassHelper.ReadArray<string>(JsonClassHelper.GetJToken<JArray>(__jobject, "tags"), JsonClassHelper.ReadString, typeof(string[]));
+                return _tags;
+            }
+        }
+
+        public string Summary
+        {
+            get
+            {
+                return JsonClassHelper.ReadString(JsonClassHelper.GetJToken<JValue>(__jobject, "summary"));
+            }
         }
 
         public string Author
@@ -46,19 +67,39 @@ namespace DiffbotApi
             }
         }
 
-        public string Date
+        [System.Diagnostics.DebuggerBrowsable(System.Diagnostics.DebuggerBrowsableState.Never)]
+        private Stats _stats;
+        public Stats Stats
         {
             get
             {
-                return JsonClassHelper.ReadString(JsonClassHelper.GetJToken<JValue>(__jobject, "date"));
+                if(_stats == null)
+                    _stats = JsonClassHelper.ReadStronglyTypedObject<Stats>(JsonClassHelper.GetJToken<JObject>(__jobject, "stats"));
+                return _stats;
             }
         }
 
-        public string ResolvedUrl
+        [System.Diagnostics.DebuggerBrowsable(System.Diagnostics.DebuggerBrowsableState.Never)]
+        private Medium[] _media;
+        public Medium[] Media
         {
             get
             {
-                return JsonClassHelper.ReadString(JsonClassHelper.GetJToken<JValue>(__jobject, "resolved_url"));
+                if(_media == null)
+                    _media = (Medium[])JsonClassHelper.ReadArray<Medium>(JsonClassHelper.GetJToken<JArray>(__jobject, "media"), JsonClassHelper.ReadStronglyTypedObject<Medium>, typeof(Medium[]));
+                return _media;
+            }
+        }
+
+        [System.Diagnostics.DebuggerBrowsable(System.Diagnostics.DebuggerBrowsableState.Never)]
+        private Comments _comments;
+        public Comments Comments
+        {
+            get
+            {
+                if(_comments == null)
+                    _comments = JsonClassHelper.ReadStronglyTypedObject<Comments>(JsonClassHelper.GetJToken<JObject>(__jobject, "comments"));
+                return _comments;
             }
         }
 
