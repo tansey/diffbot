@@ -25,6 +25,7 @@ namespace DiffbotApi
             using (WebClient wc = new WebClient())
             {
                 wc.Proxy = null;
+				wc.Encoding = Encoding.UTF8;
                 string xmlString = wc.DownloadString(getQueryUrl(FRONTPAGE_API_SUFFIX, url));
                 XmlSerializer ser = new XmlSerializer(typeof(Frontpage));
                 return (Frontpage)ser.Deserialize(new StringReader(xmlString));
@@ -49,6 +50,7 @@ namespace DiffbotApi
                     args.Add(new OptionalParameter() { Name = "tags", Value = "true" });
                 
                 wc.Proxy = null;
+				wc.Encoding = Encoding.UTF8;
                 string jsonString = wc.DownloadString(getQueryUrl(ARTICLE_API_SUFFIX, url, args.ToArray()));
                 return new Article(jsonString);
             }
