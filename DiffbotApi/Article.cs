@@ -2,9 +2,9 @@
 // http://at-my-window.blogspot.com/?page=json-class-generator
 
 using System;
-using Newtonsoft.Json.Linq;
-using JsonCSharpClassGenerator;
 using DiffbotApi.JsonTypes;
+using JsonCSharpClassGenerator;
+using Newtonsoft.Json.Linq;
 
 namespace DiffbotApi
 {
@@ -13,7 +13,7 @@ namespace DiffbotApi
     {
 
         public Article(string json)
-         : this(JObject.Parse(json))
+            : this(JObject.Parse(json))
         {
         }
 
@@ -29,7 +29,7 @@ namespace DiffbotApi
         {
             get
             {
-                if(_tags == null)
+                if (_tags == null)
                     _tags = (string[])JsonClassHelper.ReadArray<string>(JsonClassHelper.GetJToken<JArray>(__jobject, "tags"), JsonClassHelper.ReadString, typeof(string[]));
                 return _tags;
             }
@@ -73,7 +73,7 @@ namespace DiffbotApi
         {
             get
             {
-                if(_stats == null)
+                if (_stats == null)
                     _stats = JsonClassHelper.ReadStronglyTypedObject<Stats>(JsonClassHelper.GetJToken<JObject>(__jobject, "stats"));
                 return _stats;
             }
@@ -85,7 +85,7 @@ namespace DiffbotApi
         {
             get
             {
-                if(_media == null)
+                if (_media == null)
                     _media = (Medium[])JsonClassHelper.ReadArray<Medium>(JsonClassHelper.GetJToken<JArray>(__jobject, "media"), JsonClassHelper.ReadStronglyTypedObject<Medium>, typeof(Medium[]));
                 return _media;
             }
@@ -97,7 +97,7 @@ namespace DiffbotApi
         {
             get
             {
-                if(_comments == null)
+                if (_comments == null)
                     _comments = JsonClassHelper.ReadStronglyTypedObject<Comments>(JsonClassHelper.GetJToken<JObject>(__jobject, "comments"));
                 return _comments;
             }
@@ -116,6 +116,14 @@ namespace DiffbotApi
             get
             {
                 return JsonClassHelper.ReadString(JsonClassHelper.GetJToken<JValue>(__jobject, "xpath"));
+            }
+        }
+
+        public DateTime? Date
+        {
+            get
+            {
+                return JsonClassHelper.ReadNullableDate(JsonClassHelper.GetJToken<JValue>(__jobject, "date"));
             }
         }
 
