@@ -3,8 +3,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Newtonsoft.Json.Linq;
 
 namespace JsonCSharpClassGenerator
@@ -116,8 +114,14 @@ namespace JsonCSharpClassGenerator
         {
             var value = GetJToken<JValue>(token);
             if (value == null) return null;
-            return Convert.ToDateTime(value.Value);
 
+            DateTime date;
+            if (DateTime.TryParse(value.ToString(), out date))
+            {
+                return date;
+            }
+
+            return null;
         }
 
         public static object ReadObject(JToken token)
@@ -166,10 +170,10 @@ namespace JsonCSharpClassGenerator
         {
             var value = GetJToken<JObject>(token);
             if (value == null) return null;
-  
-                var dict = new Dictionary<string, T>();
 
-                return dict;
+            var dict = new Dictionary<string, T>();
+
+            return dict;
         }
 
         public static Array ReadArray<K>(JArray jArray, ValueReader<K> reader, Type type)
