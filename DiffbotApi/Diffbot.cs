@@ -14,7 +14,7 @@ namespace DiffbotApi
         private const string ARTICLE_API_SUFFIX = "article";
         private const string FRONTPAGE_API_SUFFIX = "frontpage";
         public string DeveloperToken { get; set; }
-        private WebProxy _proxy;
+        private readonly WebProxy _proxy;
 
         public Diffbot(string token)
         {
@@ -54,7 +54,7 @@ namespace DiffbotApi
                 if (tags)
                     args.Add(new OptionalParameter() { Name = "tags", Value = "true" });
                 
-                wc.Proxy = null;
+                wc.Proxy = _proxy;
 				wc.Encoding = Encoding.UTF8;
                 string jsonString = wc.DownloadString(getQueryUrl(ARTICLE_API_SUFFIX, url, args.ToArray()));
                 return new Article(jsonString);
