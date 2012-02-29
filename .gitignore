@@ -8,6 +8,7 @@ output
 publish
 _ReSharper.*
 *.Resharper
+*.dotCover
 *.Cache
 *.cache
 ~$*
