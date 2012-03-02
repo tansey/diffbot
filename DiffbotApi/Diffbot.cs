@@ -14,23 +14,28 @@ namespace DiffbotApi
         private const string ARTICLE_API_SUFFIX = "article";
         private const string FRONTPAGE_API_SUFFIX = "frontpage";
         public string DeveloperToken { get; set; }
+        private readonly WebProxy _proxy;
 
         public Diffbot(string token)
         {
             DeveloperToken = token;
         }
 
+        public Diffbot(string token, WebProxy proxy) : this(token)
+        {
+            _proxy = proxy;
+        }
+
         public Frontpage Frontpage(string url)
         {
             using (WebClient wc = new WebClient())
             {
-                wc.Proxy = null;
+                wc.Proxy = _proxy;
 				wc.Encoding = Encoding.UTF8;
                 string xmlString = wc.DownloadString(getQueryUrl(FRONTPAGE_API_SUFFIX, url));
                 XmlSerializer ser = new XmlSerializer(typeof(Frontpage));
                 return (Frontpage)ser.Deserialize(new StringReader(xmlString));
             }
-
         }
 
         public Article Article(string url, bool comments = false, bool keepAds = false, bool stats = false, bool summary = false, bool tags = false)
@@ -49,7 +54,7 @@ namespace DiffbotApi
                 if (tags)
                     args.Add(new OptionalParameter() { Name = "tags", Value = "true" });
                 
-                wc.Proxy = null;
+                wc.Proxy = _proxy;
 				wc.Encoding = Encoding.UTF8;
                 string jsonString = wc.DownloadString(getQueryUrl(ARTICLE_API_SUFFIX, url, args.ToArray()));
                 return new Article(jsonString);
