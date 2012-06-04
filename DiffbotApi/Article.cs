@@ -59,6 +59,14 @@ namespace DiffbotApi
             }
         }
 
+        public string Html
+        {
+            get
+            {
+                return JsonClassHelper.ReadString(JsonClassHelper.GetJToken<JValue>(__jobject, "html"));
+            }
+        }
+
         public string Title
         {
             get
