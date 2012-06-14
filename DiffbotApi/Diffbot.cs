@@ -21,7 +21,8 @@ namespace DiffbotApi
             DeveloperToken = token;
         }
 
-        public Diffbot(string token, WebProxy proxy) : this(token)
+        public Diffbot(string token, WebProxy proxy)
+            : this(token)
         {
             _proxy = proxy;
         }
@@ -31,20 +32,22 @@ namespace DiffbotApi
             using (WebClient wc = new WebClient())
             {
                 wc.Proxy = _proxy;
-				wc.Encoding = Encoding.UTF8;
+                wc.Encoding = Encoding.UTF8;
                 string xmlString = wc.DownloadString(getQueryUrl(FRONTPAGE_API_SUFFIX, url));
                 XmlSerializer ser = new XmlSerializer(typeof(Frontpage));
                 return (Frontpage)ser.Deserialize(new StringReader(xmlString));
             }
         }
 
-        public Article Article(string url, bool comments = false, bool keepAds = false, bool stats = false, bool summary = false, bool tags = false)
+        public Article Article(string url, bool comments = false, bool html = false, bool keepAds = false, bool stats = false, bool summary = false, bool tags = false)
         {
             using (WebClient wc = new WebClient())
             {
                 List<OptionalParameter> args = new List<OptionalParameter>();
-                if(comments)
+                if (comments)
                     args.Add(new OptionalParameter() { Name = "comments", Value = "true" });
+                if (html)
+                    args.Add(new OptionalParameter() { Name = "html", Value = "true" });
                 if (keepAds)
                     args.Add(new OptionalParameter() { Name = "dontStripAds", Value = "true" });
                 if (stats)
@@ -53,9 +56,9 @@ namespace DiffbotApi
                     args.Add(new OptionalParameter() { Name = "summary", Value = "true" });
                 if (tags)
                     args.Add(new OptionalParameter() { Name = "tags", Value = "true" });
-                
+
                 wc.Proxy = _proxy;
-				wc.Encoding = Encoding.UTF8;
+                wc.Encoding = Encoding.UTF8;
                 string jsonString = wc.DownloadString(getQueryUrl(ARTICLE_API_SUFFIX, url, args.ToArray()));
                 return new Article(jsonString);
             }
