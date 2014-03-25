@@ -1,10 +1,10 @@
 ﻿// JSON C# Class Generator
 // http://at-my-window.blogspot.com/?page=json-class-generator
 
+using System;
 using DiffbotApi.JsonTypes;
 using JsonCSharpClassGenerator;
 using Newtonsoft.Json.Linq;
-using System;
 
 namespace DiffbotApi
 {
@@ -135,20 +135,5 @@ namespace DiffbotApi
             }
         }
 
-        public string Error
-        {
-            get
-            {
-                return JsonClassHelper.ReadString(JsonClassHelper.GetJToken<JValue>(__jobject, "error"));
-            }
-        }
-
-        public int? ErrorCode
-        {
-            get
-            {
-                return JsonClassHelper.ReadNullableInteger(JsonClassHelper.GetJToken<JValue>(__jobject, "errorCode"));
-            }
-        }
     }
 }
