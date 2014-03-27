@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Net;
-using System.Xml.Serialization;
+﻿using System.Collections.Generic;
 using System.IO;
+using System.Net;
+using System.Text;
 using System.Web;
+using System.Xml.Serialization;
 namespace DiffbotApi
 {
     public class Diffbot
@@ -31,7 +29,11 @@ namespace DiffbotApi
         {
             using (WebClient wc = new WebClient())
             {
-                wc.Proxy = _proxy;
+                if (_proxy != null)
+                {
+                    wc.Proxy = _proxy;
+                }
+
                 wc.Encoding = Encoding.UTF8;
                 string xmlString = wc.DownloadString(getQueryUrl(FRONTPAGE_API_SUFFIX, url));
                 XmlSerializer ser = new XmlSerializer(typeof(Frontpage));
@@ -57,7 +59,11 @@ namespace DiffbotApi
                 if (tags)
                     args.Add(new OptionalParameter() { Name = "tags", Value = "true" });
 
-                wc.Proxy = _proxy;
+                if (_proxy != null)
+                {
+                    wc.Proxy = _proxy;
+                }
+
                 wc.Encoding = Encoding.UTF8;
                 string jsonString = wc.DownloadString(getQueryUrl(ARTICLE_API_SUFFIX, url, args.ToArray()));
                 return new Article(jsonString);
